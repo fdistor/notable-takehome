@@ -1,6 +1,7 @@
 /**
  * Given a body of text, it will replace phrases matching the pattern "Number {{ NUMBER }}" with a numbered list.
  * @param {String} body - body of text to replace key phrases with
+ * @returns {String} Replaced numbered phrases with a list and capitalizes first letter after the numbered list.
  */
 const textParser = body => {
   const numberPattern = /[Nn]umber\s(\w+)\s+([A-Za-z]+)/g;
@@ -9,8 +10,9 @@ const textParser = body => {
   /**
    * Finds and replaces all instances of the pattern 'Number {{ NUMBER }}' with '{{ NUMBER }}. {{ PASCALCASE_WORD }}'
    * @param {String} _ - phrase that matches regex pattern
-   * @param {String} number - number spelled out in English
-   * @param {String} word - word after the number
+   * @param {String} number - number (or "next") spelled out in English (ex:"Number one patient" where number would be "one")
+   * @param {String} word - word after the number (ex: "Number one patient" where word would be "patient")
+   * @returns {String} Replaced phrase with number as type number and capitalized first letter of word (ex: "Number one patient" would return "\n1. Patient")
    */
   const replaceNumbers = (_, number, word) => {
     const map = {
